@@ -7,7 +7,7 @@ export default function Home() {
   console.log("index");
   return (
     <ThemedView style={styles.container}>
-      <ThemedLogo />
+      <ThemedLogo style={styles.img} />
       <Text style={styles.title}>The Number 1</Text>
       <Text>Reading List App</Text>
       <Link href="/about">About Page</Link>
@@ -25,6 +25,9 @@ const styles = StyleSheet.create({
   title: {
     fontWeight: "bold",
     fontSize: 18,
+  },
+  img: {
+    marginVertical: 20,
   },
   link: {
     marginVertical: 10,
