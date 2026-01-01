@@ -1,0 +1,32 @@
+import { Text, View, StyleSheet, Image } from "react-native";
+import logo from "../assets/images/proxy_nextjs.png";
+import { Link } from "expo-router";
+
+export default function Home() {
+  console.log("index");
+  return (
+    <View style={styles.container}>
+      <Image source={logo} />
+      <Text style={styles.title}>The Number 1</Text>
+      <Text>Reading List App</Text>
+      <Link href="/about">About Page</Link>
+      <Link href="/contact">Contact Page</Link>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  title: {
+    fontWeight: "bold",
+    fontSize: 18,
+  },
+  link: {
+    marginVertical: 10,
+    borderBottomWidth: 1,
+  },
+});
