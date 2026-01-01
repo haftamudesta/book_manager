@@ -2,12 +2,14 @@ import { Text, View, StyleSheet, Image } from "react-native";
 import { Link } from "expo-router";
 import ThemedView from "@/components/Themedview";
 import ThemedLogo from "@/components/ThemedLogo";
+import Spacer from "@/components/Spacer";
 
 export default function Home() {
   console.log("index");
   return (
     <ThemedView style={styles.container}>
-      <ThemedLogo style={styles.img} />
+      <ThemedLogo />
+      <Spacer height={24} />
       <Text style={styles.title}>The Number 1</Text>
       <Text>Reading List App</Text>
       <Link href="/about">About Page</Link>

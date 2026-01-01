@@ -3,18 +3,21 @@ import React from "react";
 import { useColorScheme } from "react-native";
 import { Colors } from "@/constants/colors";
 import { Link } from "expo-router";
+import ThemeCard from "@/components/ThemedCard";
 
 const About = () => {
   const colorScheme = useColorScheme();
   const theme = colorScheme ? Colors[colorScheme] : Colors.light;
 
   return (
-    <View style={[styles.container, { backgroundColor: theme.background }]}>
+    <ThemeCard
+      style={[styles.container, { backgroundColor: theme.background }]}
+    >
       <Text style={styles.title}>About</Text>
       <Link href="/" style={styles.link}>
         Back to Home
       </Link>
-    </View>
+    </ThemeCard>
   );
 };
 
