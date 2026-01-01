@@ -1,17 +1,18 @@
 import { Text, View, StyleSheet, Image } from "react-native";
-import logo from "../assets/images/proxy_nextjs.png";
+import logo from "../assets/img/logo_light.png";
 import { Link } from "expo-router";
+import ThemedView from "@/components/Themedview";
 
 export default function Home() {
   console.log("index");
   return (
-    <View style={styles.container}>
+    <ThemedView style={styles.container}>
       <Image source={logo} />
       <Text style={styles.title}>The Number 1</Text>
       <Text>Reading List App</Text>
       <Link href="/about">About Page</Link>
       <Link href="/contact">Contact Page</Link>
-    </View>
+    </ThemedView>
   );
 }
 
