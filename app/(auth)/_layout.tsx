@@ -14,21 +14,10 @@ export default function AuthLayout() {
       />
       <Stack
         screenOptions={{
-          headerStyle: {
-            backgroundColor: theme.navBackground,
-          },
-          headerTintColor: theme.title,
+          headerShown: false,
+          animation: "none",
         }}
-      >
-        <Stack.Screen
-          name="(auth)"
-          options={{
-            headerShown: false,
-            animation: "none",
-          }}
-        />
-        <Stack.Screen name="index" options={{ title: "Home" }} />
-      </Stack>
+      ></Stack>
     </>
   );
 }
