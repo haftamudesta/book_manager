@@ -16,7 +16,7 @@ const SignUp = () => {
 
       <ThemedText>
         Have an account? Please{" "}
-        <Link href="/sign_up" style={styles.link}>
+        <Link href="/sign_in" style={styles.link}>
           Sign In
         </Link>
       </ThemedText>
