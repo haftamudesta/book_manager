@@ -14,6 +14,7 @@ export default function Home() {
       <Text>Reading List App</Text>
       <Link href="/sign_in">Sign In Page</Link>
       <Link href="/sign_up">Sign Up Page</Link>
+      <Link href="/profile">Profile Page</Link>
     </ThemedView>
   );
 }

@@ -11,7 +11,6 @@ const Profile = () => {
         Your Email
       </ThemedText>
       <Spacer />
-
       <ThemedText>Time to start reading some books...</ThemedText>
       <Spacer />
     </ThemedView>

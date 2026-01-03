@@ -27,6 +27,13 @@ export default function AuthLayout() {
             animation: "none",
           }}
         />
+        <Stack.Screen
+          name="(dashboard)"
+          options={{
+            headerShown: false,
+            animation: "none",
+          }}
+        />
         <Stack.Screen name="index" options={{ title: "Home" }} />
       </Stack>
     </>
