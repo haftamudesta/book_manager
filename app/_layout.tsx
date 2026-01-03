@@ -8,7 +8,10 @@ export default function AuthLayout() {
 
   return (
     <>
-      <StatusBar value="auto" />
+      <StatusBar
+        barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
+        backgroundColor={theme.background}
+      />
       <Stack
         screenOptions={{
           headerStyle: {
