@@ -20,6 +20,10 @@ const SignUp = () => {
           Sign In
         </Link>
       </ThemedText>
+      <Spacer height={12} />
+      <Link href="/" style={styles.link}>
+        Back to Home
+      </Link>
     </ThemedView>
   );
 };
@@ -38,6 +42,14 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   link: {
-    color: "blue",
+    backgroundColor: "#0ea5e9",
+    color: "white",
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 8,
+    textAlign: "center",
+    fontWeight: "500",
+    width: "100%",
+    fontSize: 16,
   },
 });
