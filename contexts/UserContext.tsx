@@ -1,16 +1,138 @@
-import { createContext, useState } from "react";
+import React, {
+  createContext,
+  useState,
+  useMemo,
+  useContext,
+  useEffect,
+  ReactNode,
+} from "react";
+import { account } from "@/lib/appwrite";
+import { ID, Models } from "appwrite";
 
-export const UserContext = createContext();
+export type AuthUserType = Models.User<Models.Preferences> | null;
 
-export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState();
-  async function signIn(email, password) {}
-  async function signUp(email, password) {}
-  async function signOut(email, password) {}
+interface AuthContextType {
+  user: AuthUserType;
+  loading: boolean;
+  error: string | null;
+  signIn: (email: string, password: string) => Promise<void>;
+  signUp: (name: string, email: string, password: string) => Promise<void>;
+  signOut: () => Promise<void>;
+  isAuthenticated: boolean;
+  clearError: () => void;
+  refreshUser: () => Promise<void>;
+}
+
+export const AuthContext = createContext<AuthContextType | undefined>(
+  undefined
+);
+
+interface AuthProviderProps {
+  children: ReactNode;
+}
+
+export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
+  const [user, setUser] = useState<AuthUserType>(null);
+  const [loading, setLoading] = useState<boolean>(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    checkUserSession();
+  }, []);
+
+  const checkUserSession = async (): Promise<void> => {
+    try {
+      setLoading(true);
+      const response = await account.get();
+      setUser(response);
+    } catch (error: any) {
+      setUser(null);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signIn = async (email: string, password: string): Promise<void> => {
+    try {
+      setLoading(true);
+      setError(null);
+      await account.createEmailPasswordSession(email, password);
+
+      const response = await account.get();
+      setUser(response);
+    } catch (error: any) {
+      const message = error.message || "Login failed";
+      setError(message);
+      console.error("Sign in error:", error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const signUp = async (
+    name: string,
+    email: string,
+    password: string
+  ): Promise<void> => {
+    try {
+      setLoading(true);
+      setError(null);
+      await account.create(ID.unique(), email, password, name);
+      await signIn(email, password);
+    } catch (error: any) {
+      const message = error.message || "Sign up failed";
+      setError(message);
+      console.error("Sign up error:", error);
+      throw error;
+    }
+  };
+
+  const signOut = async (): Promise<void> => {
+    try {
+      setLoading(true);
+      await account.deleteSession("current");
+      setUser(null);
+    } catch (error: any) {
+      const message = error.message || "Sign out failed";
+      setError(message);
+      console.error("Sign out error:", error);
+      throw error;
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearError = (): void => {
+    setError(null);
+  };
+
+  const contextValue = useMemo<AuthContextType>(
+    () => ({
+      user,
+      loading,
+      error,
+      signIn,
+      signUp,
+      signOut,
+      isAuthenticated: !!user,
+      clearError,
+      refreshUser: checkUserSession,
+    }),
+    [user, loading, error]
+  );
 
   return (
-    <UserContext.Provider value={(user, signIn, signUp, signOut)}>
-      {children}
-    </UserContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
+};
+
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
+  }
+
+  return context;
 };
