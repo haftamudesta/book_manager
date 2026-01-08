@@ -1,13 +1,14 @@
 import { Stack } from "expo-router";
 import { StatusBar, useColorScheme } from "react-native";
 import { Colors } from "@/constants/colors";
+import { UserProvider } from "@/contexts/UserContext";
 
 export default function AuthLayout() {
   const colorScheme = useColorScheme();
   const theme = colorScheme ? Colors[colorScheme] : Colors.light;
 
   return (
-    <>
+    <UserProvider>
       <StatusBar
         barStyle={colorScheme === "dark" ? "light-content" : "dark-content"}
         backgroundColor={theme.background}
@@ -36,6 +37,6 @@ export default function AuthLayout() {
         />
         <Stack.Screen name="index" options={{ title: "Home" }} />
       </Stack>
-    </>
+    </UserProvider>
   );
 }
