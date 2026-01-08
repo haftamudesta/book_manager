@@ -11,17 +11,22 @@ import {
 } from "react-native";
 import ThemedButton from "@/components/ThemedButton";
 import ThemedTextInput from "@/components/ThemedTextInput";
+import { useAuth } from "@/hooks/useUser";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const handleSubmit = () => {
-    console.log("pressed");
+  const { user, signUp } = useAuth();
+  const handleSubmit = async () => {
+    try {
+      await signUp(name, email, password);
+      console.log("current user", user);
+    } catch (error) {}
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ThemedView style={styles.container}>
+      <ThemedView safe={false} style={styles.container}>
         <Spacer height={24} />
         <ThemedText bold={true} variant="heading" style={styles.title}>
           Sign Up To Get Started

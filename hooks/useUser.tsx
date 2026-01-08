@@ -1,10 +1,11 @@
 import { useContext } from "react";
-import { UserContext } from "@/contexts/UserContext";
+import { AuthContext, AuthContextType } from "@/contexts/UserContext";
 
-export function useUser() {
-  const contex = useContext(UserContext);
-  if (!contex) {
-    throw new Error("useUser must be used in side UserProvider");
+export const useAuth = (): AuthContextType => {
+  const context = useContext(AuthContext);
+
+  if (context === undefined) {
+    throw new Error("useAuth must be used within an AuthProvider");
   }
-  return contex;
-}
+  return context;
+};

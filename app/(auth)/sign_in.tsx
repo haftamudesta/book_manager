@@ -6,15 +6,16 @@ import Spacer from "@/components/Spacer";
 import { Link } from "expo-router";
 import ThemedButton from "@/components/ThemedButton";
 import ThemedTextInput from "@/components/ThemedTextInput";
-import { useUser } from "@/hooks/useUser";
+import { useAuth } from "@/hooks/useUser";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user } = useUser();
-  const handleSubmit = () => {
-    console.log("pressed");
-    console.log("current user", user);
+  const { user, signIn } = useAuth();
+  const handleSubmit = async () => {
+    try {
+      await signIn(email, password);
+    } catch (error) {}
   };
   return (
     <ThemedView safe={false} style={styles.container}>

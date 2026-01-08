@@ -11,7 +11,7 @@ import { ID, Models } from "appwrite";
 
 export type AuthUserType = Models.User<Models.Preferences> | null;
 
-interface AuthContextType {
+export interface AuthContextType {
   user: AuthUserType;
   loading: boolean;
   error: string | null;
@@ -125,14 +125,4 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   return (
     <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
-};
-
-export const useAuth = (): AuthContextType => {
-  const context = useContext(AuthContext);
-
-  if (context === undefined) {
-    throw new Error("useAuth must be used within an AuthProvider");
-  }
-
-  return context;
 };
