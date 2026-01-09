@@ -1,11 +1,13 @@
 import { Stack } from "expo-router";
 import { StatusBar, useColorScheme } from "react-native";
 import { Colors } from "@/constants/colors";
+import { useAuth } from "@/hooks/useUser";
 
 export default function AuthLayout() {
   const colorScheme = useColorScheme();
   const theme = colorScheme ? Colors[colorScheme] : Colors.light;
-
+  const { user } = useAuth();
+  console.log("current iser", user);
   return (
     <>
       <StatusBar

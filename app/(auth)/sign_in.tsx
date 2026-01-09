@@ -7,15 +7,38 @@ import { Link } from "expo-router";
 import ThemedButton from "@/components/ThemedButton";
 import ThemedTextInput from "@/components/ThemedTextInput";
 import { useAuth } from "@/hooks/useUser";
+import { Colors } from "@/constants/colors";
 
 const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, signIn } = useAuth();
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async () => {
     try {
+      setError("");
+      if (!email.trim() || !password.trim()) {
+        setError("Error,Please fill in all fields");
+        return;
+      }
+      if (password.length < 8) {
+        setError("Error, Invalid credentials");
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setError("Error,Please enter a valid email address");
+        return;
+      }
+      setIsSubmitting(true);
       await signIn(email, password);
-    } catch (error) {}
+    } catch (error) {
+      setError(`Error, Sign up failed. Please try again.`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <ThemedView safe={false} style={styles.container}>
@@ -40,6 +63,7 @@ const SignIn = () => {
         secureTextEntry
       />
       <Spacer height={12} />
+      {error && <Text style={styles.error}>{error}</Text>}
 
       <ThemedButton onPress={handleSubmit}>
         <Text style={{ color: "#f2f2f2", textAlign: "center" }}>Sin In</Text>
@@ -83,5 +107,15 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     width: "100%",
     fontSize: 16,
+  },
+  error: {
+    color: Colors.warning,
+    padding: 10,
+    backgroundColor: "#f5c1c8",
+    borderColor: Colors.warning,
+    borderWidth: 1,
+    borderRadius: 6,
+    marginBottom: 24,
+    marginHorizontal: 10,
   },
 });
