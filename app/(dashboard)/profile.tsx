@@ -7,6 +7,7 @@ import ThemedView from "@/components/Themedview";
 import ThemedButton from "@/components/ThemedButton";
 const Profile = () => {
   const { user, signOut } = useAuth();
+
   const HandleSignOut = async () => {
     await signOut();
   };

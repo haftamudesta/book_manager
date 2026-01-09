@@ -1,7 +1,7 @@
 import Spacer from "@/components/Spacer";
 import ThemedText from "@/components/Themedtext";
 import ThemedView from "@/components/Themedview";
-import { Link } from "expo-router";
+import { Link, useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
   Keyboard,
@@ -19,9 +19,10 @@ const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const { user, signUp } = useAuth();
+  const { signUp } = useAuth();
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const router = useRouter();
 
   const handleSubmit = async () => {
     try {
@@ -41,6 +42,7 @@ const SignUp = () => {
       }
       setIsSubmitting(true);
       await signUp(name, email, password);
+      router.replace("/sign_in");
     } catch (error) {
       setError(`Error, Sign up failed. Please try again.`);
     } finally {
