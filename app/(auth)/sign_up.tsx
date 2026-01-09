@@ -14,6 +14,7 @@ import ThemedButton from "@/components/ThemedButton";
 import ThemedTextInput from "@/components/ThemedTextInput";
 import { useAuth } from "@/hooks/useUser";
 import { Colors } from "@/constants/colors";
+import ThemedLoader from "@/components/ThemedLoader";
 
 const SignUp = () => {
   const [name, setName] = useState("");
@@ -88,7 +89,7 @@ const SignUp = () => {
           style={styles.button}
         >
           {isSubmitting ? (
-            <ActivityIndicator color="#f2f2f2" />
+            <ThemedLoader />
           ) : (
             <ThemedText style={styles.buttonText}>Sign Up</ThemedText>
           )}

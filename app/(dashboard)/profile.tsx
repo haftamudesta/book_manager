@@ -5,11 +5,20 @@ import { useAuth } from "@/hooks/useUser";
 import ThemedText from "@/components/Themedtext";
 import ThemedView from "@/components/Themedview";
 import ThemedButton from "@/components/ThemedButton";
+import { useRouter } from "expo-router";
+import { useState } from "react";
 const Profile = () => {
   const { user, signOut } = useAuth();
+  const [error, setError] = useState("");
+  const router = useRouter();
 
   const HandleSignOut = async () => {
-    await signOut();
+    try {
+      await signOut();
+      router.replace("/sign_in");
+    } catch (error) {
+      setError("Error while signing out");
+    }
   };
   return (
     <ThemedView safe={true} style={styles.container}>
@@ -22,6 +31,8 @@ const Profile = () => {
       <ThemedButton onPress={HandleSignOut}>
         <Text style={styles.sign_out}>Sign Out</Text>
       </ThemedButton>
+      <Spacer />
+      {error && <ThemedText>{error}</ThemedText>}
     </ThemedView>
   );
 };
