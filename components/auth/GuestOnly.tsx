@@ -2,6 +2,7 @@ import { useAuth } from "@/hooks/useUser";
 import { useRouter } from "expo-router";
 import React, { useEffect } from "react";
 import { Text } from "react-native";
+import ThemedLoader from "../ThemedLoader";
 
 interface UserOnlyProps {
   children: React.ReactNode;
@@ -17,7 +18,7 @@ const GuestOnly: React.FC<UserOnlyProps> = ({ children }) => {
     }
   }, [user, authChecked]);
   if (!authChecked || user) {
-    return <Text>Loadding...</Text>;
+    return <ThemedLoader />;
   }
   return children;
 };
