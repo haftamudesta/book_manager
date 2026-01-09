@@ -21,6 +21,7 @@ export interface AuthContextType {
   isAuthenticated: boolean;
   clearError: () => void;
   refreshUser: () => Promise<void>;
+  authChecked: boolean;
 }
 
 export const AuthContext = createContext<AuthContextType | undefined>(
@@ -35,6 +36,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
   const [user, setUser] = useState<AuthUserType>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
+  const [authChecked, setAuthChecked] = useState(false);
 
   useEffect(() => {
     checkUserSession();
@@ -49,6 +51,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       setUser(null);
     } finally {
       setLoading(false);
+      setAuthChecked(true);
     }
   };
 
@@ -118,6 +121,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
       isAuthenticated: !!user,
       clearError,
       refreshUser: checkUserSession,
+      authChecked: authChecked,
     }),
     [user, loading, error]
   );
