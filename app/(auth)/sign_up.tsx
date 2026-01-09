@@ -8,21 +8,44 @@ import {
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
+  ActivityIndicator,
 } from "react-native";
 import ThemedButton from "@/components/ThemedButton";
 import ThemedTextInput from "@/components/ThemedTextInput";
 import { useAuth } from "@/hooks/useUser";
+import { Colors } from "@/constants/colors";
 
 const SignUp = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const { user, signUp } = useAuth();
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleSubmit = async () => {
     try {
+      setError("");
+      if (!name.trim() || !email.trim() || !password.trim()) {
+        setError("Error,Please fill in all fields");
+        return;
+      }
+      if (password.length < 8) {
+        setError("Error, Invalid credentials");
+        return;
+      }
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(email)) {
+        setError("Error,Please enter a valid email address");
+        return;
+      }
+      setIsSubmitting(true);
       await signUp(name, email, password);
-      console.log("current user", user);
-    } catch (error) {}
+    } catch (error) {
+      setError(`Error, Sign up failed. Please try again.`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -55,9 +78,18 @@ const SignUp = () => {
           secureTextEntry
         />
         <Spacer height={12} />
+        {error && <Text style={styles.error}>{error}</Text>}
 
-        <ThemedButton onPress={handleSubmit}>
-          <Text style={{ color: "#f2f2f2", textAlign: "center" }}>Sin Up</Text>
+        <ThemedButton
+          onPress={handleSubmit}
+          disabled={isSubmitting}
+          style={styles.button}
+        >
+          {isSubmitting ? (
+            <ActivityIndicator color="#f2f2f2" />
+          ) : (
+            <ThemedText style={styles.buttonText}>Sign Up</ThemedText>
+          )}
         </ThemedButton>
         <Spacer height={24} />
         <ThemedText>
@@ -70,6 +102,8 @@ const SignUp = () => {
         <Link href="/" style={styles.link}>
           Back to Home
         </Link>
+        <Spacer height={12} />
+        {error && <ThemedText></ThemedText>}
       </ThemedView>
     </TouchableWithoutFeedback>
   );
@@ -98,5 +132,26 @@ const styles = StyleSheet.create({
     fontWeight: "500",
     width: "100%",
     fontSize: 16,
+  },
+  button: {
+    width: "100%",
+    minHeight: 50,
+    marginBottom: 24,
+    justifyContent: "center",
+  },
+  buttonText: {
+    color: "#f2f2f2",
+    textAlign: "center",
+    fontSize: 16,
+    fontWeight: "600",
+  },
+  error: {
+    color: Colors.warning,
+    padding: 10,
+    backgroundColor: "#f5c1c8",
+    borderColor: Colors.warning,
+    borderWidth: 1,
+    borderRadius: 6,
+    marginHorizontal: 10,
   },
 });
