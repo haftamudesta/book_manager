@@ -1,10 +1,14 @@
+import { useAuth } from "@/hooks/useUser";
+import { databases } from "@/lib/appwrite";
+import { ID, Permission, Role } from "react-native-appwrite";
 import { useState, createContext, ReactNode } from "react";
 
+const DATABASE_ID = "69621d2a0001d95baa67";
+const TABLE_ID = "books";
 export interface Book {
   title: string;
   description: string;
   author: string;
-  userId: string;
 }
 
 interface BooksContextType {
@@ -25,6 +29,7 @@ interface BooksProviderProps {
 
 export function BooksProvider({ children }: BooksProviderProps) {
   const [books, setBooks] = useState<Book[]>([]);
+  const { user } = useAuth();
 
   async function fetchBooks(): Promise<void> {
     try {
@@ -45,6 +50,20 @@ export function BooksProvider({ children }: BooksProviderProps) {
 
   async function createBook(data: Omit<Book, "id">): Promise<void> {
     try {
+      await databases.createDocument(
+        DATABASE_ID,
+        TABLE_ID,
+        ID.unique(),
+        {
+          ...data,
+          userId: user?.$id,
+        },
+        [
+          Permission.read(Role.user(user?.$id)),
+          Permission.update(Role.user(user?.$id)),
+          Permission.delete(Role.user(user?.$id)),
+        ]
+      );
     } catch (error) {
       console.error("Error creating book:", error);
       throw error;
