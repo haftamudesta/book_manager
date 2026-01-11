@@ -1,59 +1,37 @@
 import {
   StyleSheet,
-  Text,
   useColorScheme,
   View,
   ViewStyle,
   StyleProp,
-  ViewProps,
 } from "react-native";
-import React from "react";
 import { Colors } from "@/constants/colors";
 
-interface ThemeCardProps extends ViewProps {
-  style?: StyleProp<ViewStyle>;
+interface ThemedCardProps {
   children?: React.ReactNode;
-  elevation?: number;
+  style?: StyleProp<ViewStyle>;
+  [key: string]: any; // For other props
 }
 
-const ThemeCard: React.FC<ThemeCardProps> = ({
-  style,
-  children,
-  elevation = 0,
-  ...props
-}) => {
+const ThemedCard = ({ children, style, ...props }: ThemedCardProps) => {
   const themeScheme = useColorScheme();
   const theme = themeScheme ? Colors[themeScheme] : Colors.light;
 
-  const shadowStyle =
-    elevation > 0
-      ? {
-          shadowColor: theme.text,
-          shadowOffset: { width: 0, height: elevation },
-          shadowOpacity: 0.1,
-          shadowRadius: elevation * 0.5,
-          elevation: elevation,
-        }
-      : {};
-
   return (
     <View
-      style={[
-        { backgroundColor: theme.uiBackground },
-        styles.card,
-        shadowStyle,
-        style,
-      ]}
+      style={[{ backgroundColor: theme.uiBackground }, styles.card, style]}
       {...props}
-    />
+    >
+      {children}
+    </View>
   );
 };
 
-export default ThemeCard;
+export default ThemedCard;
 
 const styles = StyleSheet.create({
   card: {
-    borderRadius: 8,
-    padding: 16,
+    borderRadius: 5,
+    padding: 20,
   },
 });

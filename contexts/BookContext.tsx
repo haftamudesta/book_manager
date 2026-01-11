@@ -6,16 +6,24 @@ import { useState, createContext, ReactNode, useEffect } from "react";
 const DATABASE_ID = "69621d2a0001d95baa67";
 const TABLE_ID = "books";
 export interface Book {
+  $id: string;
+  $collectionId?: string;
+  $databaseId?: string;
+  $createdAt: string;
+  $updatedAt: string;
+  $permissions?: string[];
+  $sequence?: number;
   title: string;
   description: string;
   author: string;
+  userId: string;
 }
 
 interface BooksContextType {
   books: Book[];
   fetchBooks: () => Promise<void>;
   fetchBookById: (id: string) => Promise<Book | undefined>;
-  createBook: (data: Omit<Book, "id">) => Promise<void>;
+  createBook: (data: Omit<Book, "$id">) => Promise<void>;
   deleteBook: (id: string) => Promise<void>;
 }
 
@@ -32,11 +40,32 @@ export function BooksProvider({ children }: BooksProviderProps) {
   const { user } = useAuth();
 
   async function fetchBooks(): Promise<void> {
+    if (!user?.$id) {
+      setBooks([]);
+      return;
+    }
+
     try {
-      const response = await databases.listDocuments(DATABASE_ID, TABLE_ID, [
-        Query.equal("userId", user?.$id),
-      ]);
-      setBooks(response.documents);
+      const appwriteBooks = await databases.listDocuments(
+        DATABASE_ID,
+        TABLE_ID,
+        [Query.equal("userId", user.$id), Query.orderDesc("$createdAt")]
+      );
+      const documents = appwriteBooks.documents;
+      const transformedBooks: Book[] = documents.map((doc) => ({
+        $id: doc.$id,
+        $collectionId: doc.$collectionId,
+        $databaseId: doc.$databaseId,
+        $createdAt: doc.$createdAt,
+        $updatedAt: doc.$updatedAt,
+        $permissions: doc.$permissions,
+        $sequence: doc.$sequence,
+        title: doc.title || "",
+        description: doc.description || "",
+        author: doc.author || "",
+        userId: doc.userId || user.$id,
+      }));
+      setBooks(transformedBooks);
     } catch (error) {
       console.error("Error fetching books:", error);
       throw error;
@@ -52,7 +81,10 @@ export function BooksProvider({ children }: BooksProviderProps) {
     }
   }
 
-  async function createBook(data: Omit<Book, "id">): Promise<void> {
+  async function createBook(data: Omit<Book, "$id">): Promise<void> {
+    if (!user?.$id) {
+      throw new Error("User must be logged in to create a book");
+    }
     try {
       await databases.createDocument(
         DATABASE_ID,
@@ -63,11 +95,12 @@ export function BooksProvider({ children }: BooksProviderProps) {
           userId: user?.$id,
         },
         [
-          Permission.read(Role.user(user?.$id)),
-          Permission.update(Role.user(user?.$id)),
-          Permission.delete(Role.user(user?.$id)),
+          Permission.read(Role.user(user.$id)),
+          Permission.update(Role.user(user.$id)),
+          Permission.delete(Role.user(user.$id)),
         ]
       );
+      await fetchBooks();
     } catch (error) {
       console.error("Error creating book:", error);
       throw error;
