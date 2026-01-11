@@ -49,7 +49,7 @@ const BookDetails = () => {
     }
 
     loadBook();
-  }, [bookId, fetchBookById]);
+  }, [bookId]);
 
   if (loading) {
     return (

@@ -97,7 +97,6 @@ const DashboardLayout = () => {
               ),
             }}
           />
-
           <Tabs.Screen
             name="profile"
             options={{
@@ -111,6 +110,7 @@ const DashboardLayout = () => {
               ),
             }}
           />
+          <Tabs.Screen name="books/[bookId]" options={{ href: null }} />
         </Tabs>
       </BooksProvider>
     </UserOnly>
