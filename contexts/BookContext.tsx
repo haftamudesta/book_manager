@@ -1,5 +1,5 @@
 import { useAuth } from "@/hooks/useUser";
-import { databases } from "@/lib/appwrite";
+import { client, databases } from "@/lib/appwrite";
 import { ID, Permission, Query, Role } from "react-native-appwrite";
 import { useState, createContext, ReactNode, useEffect } from "react";
 
@@ -116,12 +116,84 @@ export function BooksProvider({ children }: BooksProviderProps) {
   }
 
   useEffect(() => {
-    if (user) {
+    let unsubscribe: (() => void) | undefined;
+
+    const channel = `databases.${DATABASE_ID}.collections.${TABLE_ID}.documents`;
+
+    if (user?.$id) {
       fetchBooks();
+
+      unsubscribe = client.subscribe(channel, (response) => {
+        const { events, payload } = response as any;
+
+        if (
+          events.includes(
+            `databases.${DATABASE_ID}.collections.${TABLE_ID}.documents.*.create`
+          )
+        ) {
+          const newBook: Book = {
+            $id: payload.$id,
+            $collectionId: payload.$collectionId,
+            $databaseId: payload.$databaseId,
+            $createdAt: payload.$createdAt,
+            $updatedAt: payload.$updatedAt,
+            $permissions: payload.$permissions,
+            $sequence: payload.$sequence,
+            title: payload.title || "",
+            description: payload.description || "",
+            author: payload.author || "",
+            userId: payload.userId || user.$id,
+          };
+          if (newBook.userId === user.$id) {
+            setBooks((prevBooks) => [newBook, ...prevBooks]);
+          }
+        }
+
+        if (
+          events.includes(
+            `databases.${DATABASE_ID}.collections.${TABLE_ID}.documents.*.delete`
+          )
+        ) {
+          setBooks((prevBooks) =>
+            prevBooks.filter((book) => book.$id !== payload.$id)
+          );
+        }
+        if (
+          events.includes(
+            `databases.${DATABASE_ID}.collections.${TABLE_ID}.documents.*.update`
+          )
+        ) {
+          const updatedBook: Book = {
+            $id: payload.$id,
+            $collectionId: payload.$collectionId,
+            $databaseId: payload.$databaseId,
+            $createdAt: payload.$createdAt,
+            $updatedAt: payload.$updatedAt,
+            $permissions: payload.$permissions,
+            $sequence: payload.$sequence,
+            title: payload.title || "",
+            description: payload.description || "",
+            author: payload.author || "",
+            userId: payload.userId || user.$id,
+          };
+          setBooks((prevBooks) =>
+            prevBooks.map((book) =>
+              book.$id === updatedBook.$id ? updatedBook : book
+            )
+          );
+        }
+      });
     } else {
       setBooks([]);
     }
-  }, [user]);
+
+    return () => {
+      if (unsubscribe) {
+        unsubscribe();
+      }
+    };
+  }, [user, fetchBooks]);
+
   return (
     <BooksContext.Provider
       value={{ books, fetchBooks, fetchBookById, createBook, deleteBook }}

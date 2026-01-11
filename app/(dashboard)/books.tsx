@@ -19,9 +19,6 @@ const Books = () => {
   const { books, fetchBooks } = useBooks();
   const router = useRouter();
   const [refreshing, setRefreshing] = useState(false);
-
-  console.log("all books", books);
-
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
@@ -91,7 +88,6 @@ const Books = () => {
         showsVerticalScrollIndicator={false}
       >
         {books.map((book, index) => {
-          console.log(book.title);
           return (
             <Pressable
               key={book.$id || `book-${index}`}
