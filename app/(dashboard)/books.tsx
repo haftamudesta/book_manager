@@ -31,7 +31,10 @@ const Books = () => {
   }, [fetchBooks]);
 
   const handleBookPress = (bookId: string) => {
-    // router.push(`/books/${bookId}`);
+    router.push({
+      pathname: "/books/[bookId]",
+      params: { bookId: bookId },
+    });
   };
 
   if (!books || books.length === 0) {

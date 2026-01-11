@@ -73,10 +73,37 @@ export function BooksProvider({ children }: BooksProviderProps) {
   }
 
   async function fetchBookById(id: string): Promise<Book | undefined> {
-    try {
+    if (!user?.$id || !id) {
+      console.log("No user or invalid ID");
       return undefined;
-    } catch (error) {
-      console.error(`Error fetching book with id ${id}:`, error);
+    }
+
+    try {
+      const response = await databases.getDocument(DATABASE_ID, TABLE_ID, id);
+      const doc = response as any;
+
+      console.log("Fetched book document:", doc);
+      if (doc.userId && doc.userId !== user.$id) {
+        console.log("Book does not belong to current user");
+      }
+      return {
+        $id: doc.$id || "",
+        $collectionId: doc.$collectionId,
+        $databaseId: doc.$databaseId,
+        $createdAt: doc.$createdAt || new Date().toISOString(),
+        $updatedAt: doc.$updatedAt || new Date().toISOString(),
+        $permissions: doc.$permissions,
+        $sequence: doc.$sequence,
+        title: doc.title || "Untitled",
+        description: doc.description || "",
+        author: doc.author || "Unknown Author",
+        userId: doc.userId || user.$id,
+      };
+    } catch (error: any) {
+      console.error(
+        `Error fetching book with id ${id}:`,
+        error.message || error
+      );
       throw error;
     }
   }
