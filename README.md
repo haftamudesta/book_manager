@@ -1,50 +1,211 @@
-# Welcome to your Expo app 👋
+<a name="readme-top"></a>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<div align="center">
+  <h3><b>Books Manager</b></h3>
 
-## Get started
+</div>
 
-1. Install dependencies
+<!-- TABLE OF CONTENTS -->
 
-   ```bash
-   npm install
-   ```
+<details>
+  <summary>
+    <h1>📗 Table of Contents</h1>
+  </summary>
 
-2. Start the app
+- [📖 About the Project](#about-project)
+  - [🛠 Built With](#built-with)
+    - [Tech Stack](#tech-stack)
+    - [Key Features](#key-features)
+  - [🚀 Live Demo](#live-demo)
+- [💻 Getting Started](#getting-started)
+  - [Setup](#setup)
+  - [Prerequisites](#prerequisites)
+  - [Install](#install)
+  - [Usage](#usage)
+  - [Run tests](#run-tests)
+  - [Deployment](#deployment)
+- [👥 Authors](#authors)
+- [🔭 Future Features](#future-features)
+- [🤝 Contributing](#contributing)
+- [⭐️ Show your support](#support)
+- [🙏 Acknowledgements](#acknowledgements)
+- [❓ FAQ](#faq)
+- [📝 License](#license)
+</details>
 
-   ```bash
-   npx expo start
-   ```
+<!-- PROJECT DESCRIPTION -->
 
-In the output, you'll find options to open the app in a
+# 📖 Book Manager <a name="about-project"></a>
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+**Book Manager** Book Manager is an application or system designed to manage books - typically for personal collections, libraries, bookstores, or reading lists.
+**What This Book Manager App Does:**
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+- Create/Add Books - Users can add new books to their collection
 
-## Get a fresh project
+- View Books - See all books in a list/grid view
 
-When you're ready, run:
+- View Book Details - See detailed information about each book
 
-```bash
-npm run reset-project
+## 🛠 Built With <a name="built-with"></a>
+
+### Tech Stack <a name="tech-stack"></a>
+
+<details>
+  <summary>Client</summary>
+  <ul>
+<li><a href="https://www.w3.org/html/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/html-icon.svg" alt="html5" width="55" height="55"/></a></li>
+<li><a href="https://www.w3schools.com/css/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/css-icon.svg" alt="css3" width="55" height="55"/></a></li>
+<li><a href="https://reactjs.org/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/react-js-icon.svg" alt="react js" width="55" height="55"/></a></li>
+<li><a href="https://redux.js.org/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/redux-icon.svg" alt="react js" width="55" height="55"/></a></li>
+  </ul>
+</details>
+
+<!-- Features -->
+
+### Key Features <a name="key-features"></a>
+
+- **Fetch books from Appwrite**
+- **Add Books to Appwrite**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LIVE DEMO -->
+
+## 🚀 Live Demo <a name="live-demo"></a>
+
+- [Comming soon]
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- GETTING STARTED -->
+
+## 💻 Getting Started <a name="getting-started"></a>
+
+To get a local copy up and running, follow these steps.
+
+### Prerequisites
+
+In order to run this project you need:
+
+- [ ] A PC running any operating system like Windows, Linux, or MacOS
+- [ ] An Internet connection
+- [ ] Knowledge of some basic Git commands
+- [ ] A browser like Brave, Google Chrome, Mozilla Firefox or Microsoft Edge
+- [] Android Studio Emulator or Physical device
+- [ ] Git installed
+
+### Setup
+
+- [ ] Clone this repository to your desired folder:
+
+```
+git clone https://github.com/haftamudesta/book_manager
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+```
+cd book_manager
+```
 
-## Learn more
+- [ ] Open the file in your code editor
 
-To learn more about developing your project with Expo, look at the following resources:
+```
+code .
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+### Install
 
-## Join the community
+- [ ] Node modules:
 
-Join our community of developers creating universal apps.
+```
+pnpm i
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Usage
+
+To run the project, execute the following command:
+
+```
+pnpm run android
+```
+
+### Deployment
+
+You can build this project using:
+
+```
+pnpm expo build:android
+```
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- AUTHORS -->
+
+## 👥 Author <a name="author"></a>
+
+👤 **Haftamu Desta**
+
+- GitHub: [@haftamu](https://github.com/haftamudesta)
+- Twitter: [@DestaHaftamu](https://twitter.com/DestaHftamu?t=NQ4ovkdWbsfsjh62NFEXFg&s=09)
+- LinkedIn: [Haftamu Desta](https://www.linkedin.com/in/haftamu-desta-795791a1/)
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FUTURE FEATURES -->
+
+## 🔭 Future Features <a name="future-features"></a>
+
+- [ ] **Improve design.**
+- [ ] **Improve design for IOS**
+- [ ] **Improve design for web**
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+
+## 🤝 Contributing <a name="contributing"></a>
+
+Contributions, issues, and feature requests are welcome!
+
+Feel free to check the [issues page](../../issues/).
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- SUPPORT -->
+
+## ⭐️ Show your support <a name="support"></a>
+
+If you like this project then don't forget to give a star ⭐ on this repository.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- ACKNOWLEDGEMENTS -->
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- FAQ (optional) -->
+
+<!--
+## ❓ FAQ <a name="faq"></a>
+-->
+
+<!--
+- **[Question_1]**
+
+  - [Answer_1]
+
+- **[Question_2]**
+
+  - [Answer_2]
+-->
+
+<!--
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+-->
+
+<!-- LICENSE -->
+
+## 📝 License <a name="license"></a>
+
+This project is [MIT](./LICENSE) licensed.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
