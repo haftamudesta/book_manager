@@ -91,7 +91,7 @@ In order to run this project you need:
 - [ ] An Internet connection
 - [ ] Knowledge of some basic Git commands
 - [ ] A browser like Brave, Google Chrome, Mozilla Firefox or Microsoft Edge
-- [] Android Studio Emulator or Physical device
+- [ ] Android Studio Emulator or Physical device
 - [ ] Git installed
 
 ### Setup
