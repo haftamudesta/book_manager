@@ -54,9 +54,27 @@
   <summary>Client</summary>
   <ul>
   <li><a href="https://reactnative.dev/" target="_blank"><img align="center" src="https://cdn.worldvectorlogo.com/logos/react-native-1.svg" alt="react js" width="55" height="55"/></a></li>
+  <br />
   <li><a href="https://expo.dev/" target="_blank"><img align="center" src="https://notificare.com/static/08e587971af3313079db68d8d2b4d446/d0198/react-native-and-expo-cover.jpg" alt="react js" width="55" height="55"/></a></li>
+  <br />
 <li><a href="https://appwrite.io/" target="_blank"><img align="center" src="https://appwrite.io/assets/logomark/logo.png" alt="css3" width="55" height="55"/></a></li>
-<li><a href="https://reactjs.org/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/react-js-icon.svg" alt="react js" width="55" height="55"/></a></li>
+<br />
+<li><a href="https://www.typescriptlang.org/" target="_blank"><img align="center" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrJC9Qwc8eLVhYZ6c5GVh3frPEDDcvnHzbSg&s" alt="react js" width="55" height="55"/></a></li>
+  </ul>
+</details>
+<br />
+<details>
+  <summary>Details</summary>
+  <ul>
+    <li><a href="https://reactnative.dev/">React Native</a> - Mobile framework</li>
+    <br />
+    <li><a href="https://expo.dev/">Expo</a> - Development platform</li>
+    <br />
+    <li><a href="https://appwrite.io/">Appwrite</a> - Backend & Authentication</li>
+    <br />
+    <li><a href="https://www.typescriptlang.org/">TypeScript</a> - Type safety</li>
+    <br />
+    <li><a href="https://expo.github.io/router/">Expo Router</a> - Navigation</li>
   </ul>
 </details>
 
@@ -114,18 +132,26 @@ code .
 
 ### Install
 
-- [ ] Node modules:
+- Install dependencies using your preferred package manager:
 
-```
-pnpm i
-```
+```bash
+# Using pnpm (recommended)
+pnpm install
+
+# Using npm
+npm install
+
+# Using yarn
+yarn install
 
 ### Usage
 
 To run the project, execute the following command:
 
 ```
+
 pnpm run android
+
 ```
 
 ### Deployment
@@ -133,7 +159,9 @@ pnpm run android
 You can build this project using:
 
 ```
+
 pnpm expo build:android
+
 ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
@@ -209,3 +237,4 @@ If you like this project then don't forget to give a star ⭐ on this repository
 This project is [MIT](./LICENSE) licensed.
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
+```
