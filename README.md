@@ -37,7 +37,7 @@
 
 # 📖 Book Manager <a name="about-project"></a>
 
-**Book Manager** Book Manager is an application or system designed to manage books - typically for personal collections, libraries, bookstores, or reading lists.
+**Book Manager** is an application or system designed to manage books - typically for personal collections, libraries, bookstores, or reading lists.
 **What This Book Manager App Does:**
 
 - Create/Add Books - Users can add new books to their collection
