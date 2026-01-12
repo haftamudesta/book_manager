@@ -135,20 +135,28 @@ code .
 - Install dependencies using your preferred package manager:
 
 ```bash
+
+```
+
 # Using pnpm (recommended)
+
 pnpm install
 
-# Using npm
+```
+#  Using npm
+
 npm install
 
+```
+
 # Using yarn
+
 yarn install
 
 ### Usage
 
-To run the project, execute the following command:
-
 ```
+To run the project, execute the following command:
 
 pnpm run android
 
@@ -157,14 +165,9 @@ pnpm run android
 ### Deployment
 
 You can build this project using:
-
-```
-
 pnpm expo build:android
 
-```
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+ <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- AUTHORS -->
 
