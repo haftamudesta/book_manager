@@ -53,10 +53,10 @@
 <details>
   <summary>Client</summary>
   <ul>
-<li><a href="https://www.w3.org/html/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/html-icon.svg" alt="html5" width="55" height="55"/></a></li>
-<li><a href="https://www.w3schools.com/css/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/css-icon.svg" alt="css3" width="55" height="55"/></a></li>
+  <li><a href="https://reactnative.dev/" target="_blank"><img align="center" src="https://cdn.worldvectorlogo.com/logos/react-native-1.svg" alt="react js" width="55" height="55"/></a></li>
+  <li><a href="https://expo.dev/" target="_blank"><img align="center" src="https://notificare.com/static/08e587971af3313079db68d8d2b4d446/d0198/react-native-and-expo-cover.jpg" alt="react js" width="55" height="55"/></a></li>
+<li><a href="https://appwrite.io/" target="_blank"><img align="center" src="https://appwrite.io/assets/logomark/logo.png" alt="css3" width="55" height="55"/></a></li>
 <li><a href="https://reactjs.org/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/react-js-icon.svg" alt="react js" width="55" height="55"/></a></li>
-<li><a href="https://redux.js.org/" target="_blank"><img align="center" src="https://uxwing.com/wp-content/themes/uxwing/download/brands-and-social-media/redux-icon.svg" alt="react js" width="55" height="55"/></a></li>
   </ul>
 </details>
 
