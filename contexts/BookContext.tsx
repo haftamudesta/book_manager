@@ -136,6 +136,7 @@ export function BooksProvider({ children }: BooksProviderProps) {
 
   async function deleteBook(id: string): Promise<void> {
     try {
+      await databases.deleteDocument(DATABASE_ID, TABLE_ID, id);
     } catch (error) {
       console.error(`Error deleting book with id ${id}:`, error);
       throw error;

@@ -1,5 +1,5 @@
-import { StyleSheet } from "react-native";
-import { router, useLocalSearchParams } from "expo-router";
+import { StyleSheet, Text } from "react-native";
+import { router, useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { useBooks } from "../../../hooks/useBooks";
 import { Book } from "@/contexts/BookContext";
@@ -10,6 +10,7 @@ import ThemedView from "@/components/Themedview";
 import Spacer from "../../../components/Spacer";
 import ThemedCard from "../../../components/ThemedCard";
 import ThemedLoader from "../../../components/ThemedLoader";
+import { Colors } from "@/constants/colors";
 
 const BookDetails = () => {
   const [book, setBook] = useState<Book | null>(null);
@@ -17,10 +18,11 @@ const BookDetails = () => {
   const [error, setError] = useState<string | null>(null);
 
   const params = useLocalSearchParams();
-  const { fetchBookById } = useBooks();
+  const { fetchBookById, deleteBook } = useBooks();
   const bookId = Array.isArray(params.bookId)
     ? params.bookId[0]
     : params.bookId;
+  const router = useRouter();
 
   useEffect(() => {
     async function loadBook() {
@@ -50,6 +52,11 @@ const BookDetails = () => {
 
     loadBook();
   }, [bookId]);
+  const handleDelete = async () => {
+    await deleteBook(bookId);
+    setBook(null);
+    router.replace("/books");
+  };
 
   if (loading) {
     return (
@@ -107,6 +114,17 @@ const BookDetails = () => {
             </ThemedText>
           </>
         )}
+        <ThemedText style={styles.delete} onPress={handleDelete}>
+          <Text
+            style={{
+              color: "#fff",
+              textAlign: "center",
+              cursor: "pointer",
+            }}
+          >
+            Delete Book
+          </Text>
+        </ThemedText>
       </ThemedCard>
     </ThemedView>
   );
@@ -156,5 +174,15 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: 16,
     fontWeight: "600",
+  },
+  delete: {
+    marginTop: 40,
+    backgroundColor: Colors.warning,
+    width: 200,
+    height: 40,
+    alignSelf: "center",
+    borderRadius: 50,
+    paddingTop: 4,
+    cursor: "pointer",
   },
 });
