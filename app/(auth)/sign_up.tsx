@@ -8,7 +8,6 @@ import {
   StyleSheet,
   Text,
   TouchableWithoutFeedback,
-  ActivityIndicator,
 } from "react-native";
 import ThemedButton from "@/components/ThemedButton";
 import ThemedTextInput from "@/components/ThemedTextInput";
